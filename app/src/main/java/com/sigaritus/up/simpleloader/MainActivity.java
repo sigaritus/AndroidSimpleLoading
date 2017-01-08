@@ -4,7 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
+
+    @Bind(R.id.loader)
+    SimpleLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -12,7 +18,11 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
         getSupportActionBar().hide();
+
+        loader.loading(true);
+
 
     }
 }

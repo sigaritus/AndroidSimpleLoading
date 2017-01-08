@@ -11,8 +11,10 @@
     tools:context="com.sigaritus.up.simpleloader.MainActivity">
 
     <com.sigaritus.up.simpleloader.SimpleLoader
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/loader"
+        android:background="#00ffc3"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         app:text="loading"
         app:loaderColor="@color/colorPrimary"
         app:speed="0.5"
