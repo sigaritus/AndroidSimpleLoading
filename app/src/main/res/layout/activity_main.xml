@@ -12,11 +12,11 @@
 
     <com.sigaritus.up.simpleloader.SimpleLoader
         android:id="@+id/loader"
-        android:background="#00ffc3"
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:text="loading"
         app:loaderColor="@color/colorPrimary"
+        app:loaderSize="120"
         app:speed="0.5"
         />
 </RelativeLayout>

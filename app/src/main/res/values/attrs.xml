@@ -4,5 +4,7 @@
         <attr name="text" format="string"/>
         <attr name="loaderColor" format="reference"/>
         <attr name="speed" format="float"/>
+        <attr name="loaderSize" format="integer"/>
+        <attr name="textSize" format="dimension"/>
     </declare-styleable>
 </resources>

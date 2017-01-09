@@ -16,27 +16,27 @@ import android.widget.Toast;
  * Created by Administrator on 2017/1/1.
  */
 public class SimpleLoader extends View {
-    private  int mTitleTextSize;
+    private  int mTextSize;
     private String mLoadingText;
     private float mSpeed;
     private int mLoaderColor;
     private Paint paint;
-    private float mSize;
+    private int mSize;
     private int mWidth = 20;
     private int typeFlag = 0;
     private boolean startLoading;
     private String TAG = "SimpleLoader";
 
 
-    private int line1_x1 = 100;
-    private int line1_y1 = 0;
-    private int line1_x2 = 0;
-    private int line1_y2 = 100;
+    private int line1_x1 ;
+    private int line1_y1 ;
+    private int line1_x2 ;
+    private int line1_y2 ;
 
-    private int line2_x1 = 0;
-    private int line2_y1 = 0;
-    private int line2_x2 = 100;
-    private int line2_y2 = 100;
+    private int line2_x1 ;
+    private int line2_y1 ;
+    private int line2_x2 ;
+    private int line2_y2 ;
 
 
     public SimpleLoader(Context context) {
@@ -50,7 +50,7 @@ public class SimpleLoader extends View {
     public SimpleLoader(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        initPaint();
+
         setWillNotDraw(false);
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.SimpleLoader);
@@ -70,15 +70,27 @@ public class SimpleLoader extends View {
                 case R.styleable.SimpleLoader_speed:
 
                     mSpeed = a.getFloat(attr, 0.5f);
-//                    // 默认设置为16sp，TypeValue也可以把sp转化为px
-//                    mTitleTextSize = a.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
-//                            TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+
+
                     break;
+                case R.styleable.SimpleLoader_textSize:
+
+                    // 默认设置为16sp，TypeValue也可以把sp转化为px
+                    mTextSize = a.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+                    break;
+
+                case R.styleable.SimpleLoader_loaderSize:
+
+                    mSize = a.getInteger(attr,100);
+                    break;
+
+
             }
 
         }
 
-
+        initPaint();
         a.recycle();
 
 
@@ -88,6 +100,7 @@ public class SimpleLoader extends View {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         paint.setColor(mLoaderColor);
+        Log.i(TAG, "initPaint: "+mLoaderColor);
         paint.setStyle(Paint.Style.STROKE);
 
         paint.setStrokeWidth(mWidth);
@@ -96,6 +109,8 @@ public class SimpleLoader extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+
     }
 
     @Override
@@ -113,16 +128,16 @@ public class SimpleLoader extends View {
         *
         *
         */
-        paint.setColor(Color.YELLOW);
+
 
         canvas.drawLine(line1_x1,line1_y1,line1_x2,line1_y2,paint);
-        canvas.drawLine(line2_x1+100,line2_y1,line2_x2+100,line2_y2,paint);
+        canvas.drawLine(line2_x1+mSize,line2_y1,line2_x2+mSize,line2_y2,paint);
 
-        canvas.drawLine(line1_x1+200,line1_y1,line1_x2+200,line1_y2,paint);
-        canvas.drawLine(line2_x1+300,line2_y1,line2_x2+300,line2_y2,paint);
+        canvas.drawLine(line1_x1+mSize*2,line1_y1,line1_x2+mSize*2,line1_y2,paint);
+        canvas.drawLine(line2_x1+mSize*3,line2_y1,line2_x2+mSize*3,line2_y2,paint);
 
-        canvas.drawLine(line1_x1+400,line1_y1,line1_x2+400,line1_y2,paint);
-        canvas.drawLine(line2_x1+500,line2_y1,line2_x2+500,line2_y2,paint);
+        canvas.drawLine(line1_x1+mSize*4,line1_y1,line1_x2+mSize*4,line1_y2,paint);
+        canvas.drawLine(line2_x1+mSize*5,line2_y1,line2_x2+mSize*5,line2_y2,paint);
 
 
 
@@ -165,50 +180,60 @@ public class SimpleLoader extends View {
         @Override
         public void run() {
             while (startLoading) {
-                switch (typeFlag % 3) {
+                switch (typeFlag % 4) {
                     case 0:
-                        line1_x1 = 100;
+                        line1_x1 = mSize;
                         line1_y1 = 0;
                         line1_x2 = 0;
-                        line1_y2 = 100;
+                        line1_y2 = mSize;
 
                         line2_x1 = 0;
                         line2_y1 = 0;
-                        line2_x2 = 100;
-                        line2_y2 = 100;
+                        line2_x2 = mSize;
+                        line2_y2 = mSize;
                         break;
                     case 1:
                         line1_x1 = 0;
-                        line1_y1 = 50;
-                        line1_x2 = 100;
-                        line1_y2 = 50;
+                        line1_y1 = mSize/2;
+                        line1_x2 = mSize;
+                        line1_y2 = mSize/2;
 
                         line2_x1 = 0;
-                        line2_y1 = 50;
-                        line2_x2 = 100;
-                        line2_y2 = 50;
+                        line2_y1 = mSize/2;
+                        line2_x2 = mSize;
+                        line2_y2 = mSize/2;
                         break;
                     case 2:
                         line1_x1 = 0;
                         line1_y1 = 0;
-                        line1_x2 = 100;
-                        line1_y2 = 100;
+                        line1_x2 = mSize;
+                        line1_y2 = mSize;
 
-                        line1_x1 = 100;
-                        line1_y1 = 0;
-                        line1_x2 = 0;
-                        line1_y2 = 100;
+                        line2_x1 = mSize;
+                        line2_y1 = 0;
+                        line2_x2 = 0;
+                        line2_y2 = mSize;
+                        break;
+                    case 3:
+                        line1_x1 = 0;
+                        line1_y1 = mSize/2;
+                        line1_x2 = mSize;
+                        line1_y2 = mSize/2;
+
+                        line2_x1 = 0;
+                        line2_y1 = mSize/2;
+                        line2_x2 = mSize;
+                        line2_y2 = mSize/2;
                         break;
                     default:
                         break;
                 }
                 try {
-                    Thread.sleep((long) (mSpeed * 1000));
+                    Thread.sleep((long) (mSpeed * 500));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 typeFlag++;
-//                Log.i(TAG,typeFlag+"--");
 
                 postInvalidate();
 
