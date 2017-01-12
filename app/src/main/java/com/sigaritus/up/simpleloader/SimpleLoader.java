@@ -57,12 +57,12 @@ public class SimpleLoader extends View {
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.SimpleLoader);
 
-
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
             switch (attr) {
                 case R.styleable.SimpleLoader_text:
+
                     mLoadingText = a.getString(attr);
                     break;
                 case R.styleable.SimpleLoader_loaderColor:
@@ -72,7 +72,6 @@ public class SimpleLoader extends View {
                 case R.styleable.SimpleLoader_speed:
 
                     mSpeed = a.getFloat(attr, 0.5f);
-
 
                     break;
                 case R.styleable.SimpleLoader_textSize:
@@ -86,7 +85,6 @@ public class SimpleLoader extends View {
 
                     mSize = a.getInteger(attr,100);
                     break;
-
 
             }
 
@@ -115,7 +113,7 @@ public class SimpleLoader extends View {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int width;
-        int height ;
+        int height;
         if (widthMode == MeasureSpec.EXACTLY)
         {
             width = widthSize;
@@ -136,14 +134,11 @@ public class SimpleLoader extends View {
 
         }
 
-
         setMeasuredDimension(width, height);
         mStartX = width/2 - 3*mSize;
         mStartY  = height/2 - mSize/2;
 
     }
-
-
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
@@ -155,14 +150,14 @@ public class SimpleLoader extends View {
     protected void onDraw(Canvas canvas) {
 
 
-        canvas.drawLine(line1_x1,line1_y1,line1_x2,line1_y2,paint);
-        canvas.drawLine(line2_x1+mSize,line2_y1,line2_x2+mSize,line2_y2,paint);
+        canvas.drawLine( mStartX+ line1_x1,mStartY +line1_y1, mStartX+ line1_x2,mStartY +line1_y2,paint);
+        canvas.drawLine( mStartX+ line2_x1+mSize,mStartY +line2_y1, mStartX+ line2_x2+mSize,mStartY +line2_y2,paint);
 
-        canvas.drawLine(line1_x1+mSize*2,line1_y1,line1_x2+mSize*2,line1_y2,paint);
-        canvas.drawLine(line2_x1+mSize*3,line2_y1,line2_x2+mSize*3,line2_y2,paint);
+        canvas.drawLine( mStartX+ line1_x1+mSize*2,mStartY +line1_y1, mStartX+ line1_x2+mSize*2,mStartY +line1_y2,paint);
+        canvas.drawLine( mStartX+ line2_x1+mSize*3,mStartY +line2_y1, mStartX+ line2_x2+mSize*3,mStartY +line2_y2,paint);
 
-        canvas.drawLine(line1_x1+mSize*4,line1_y1,line1_x2+mSize*4,line1_y2,paint);
-        canvas.drawLine(line2_x1+mSize*5,line2_y1,line2_x2+mSize*5,line2_y2,paint);
+        canvas.drawLine( mStartX+ line1_x1+mSize*4,mStartY +line1_y1, mStartX+ line1_x2+mSize*4,mStartY +line1_y2,paint);
+        canvas.drawLine( mStartX+ line2_x1+mSize*5,mStartY +line2_y1, mStartX+ line2_x2+mSize*5,mStartY +line2_y2,paint);
 
         Log.i(TAG, "ondraw--");
     }
@@ -206,48 +201,48 @@ public class SimpleLoader extends View {
             while (startLoading) {
                 switch (typeFlag % 4) {
                     case 0:
-                        line1_x1 = mStartX + mSize;
-                        line1_y1 = mStartY;
-                        line1_x2 = mStartX ;
-                        line1_y2 = mStartY + mSize;
+                        line1_x1 =mSize;
+                        line1_y1 = 0;
+                        line1_x2 = 0 ;
+                        line1_y2 =  mSize;
 
-                        line2_x1 = mStartX ;
-                        line2_y1 = mStartY;
-                        line2_x2 = mStartX +mSize;
-                        line2_y2 = mStartY+mSize;
+                        line2_x1 = 0 ;
+                        line2_y1 = 0;
+                        line2_x2 = mSize;
+                        line2_y2 = mSize;
                         break;
                     case 1:
-                        line1_x1 = mStartX ;
-                        line1_y1 = mStartY+mSize/2;
-                        line1_x2 = mStartX +mSize;
-                        line1_y2 = mStartY+mSize/2;
+                        line1_x1 = 0 ;
+                        line1_y1 = mSize/2;
+                        line1_x2 = mSize;
+                        line1_y2 = mSize/2;
 
-                        line2_x1 = mStartX ;
-                        line2_y1 = mStartY+mSize/2;
-                        line2_x2 = mStartX +mSize;
-                        line2_y2 = +mStartY+mSize/2;
+                        line2_x1 = 0 ;
+                        line2_y1 = mSize/2;
+                        line2_x2 = mSize;
+                        line2_y2 = mSize/2;
                         break;
                     case 2:
-                        line1_x1 = mStartX ;
-                        line1_y1 = mStartY;
-                        line1_x2 = mStartX +mSize;
-                        line1_y2 = mStartY+mSize;
+                        line1_x1 = 0 ;
+                        line1_y1 = 0;
+                        line1_x2 = mSize;
+                        line1_y2 = mSize;
 
-                        line2_x1 = mStartX +mSize;
-                        line2_y1 = mStartY;
-                        line2_x2 = mStartX ;
-                        line2_y2 = mStartY+mSize;
+                        line2_x1 = mSize;
+                        line2_y1 = 0;
+                        line2_x2 = 0 ;
+                        line2_y2 = mSize;
                         break;
                     case 3:
-                        line1_x1 = mStartX ;
-                        line1_y1 = mStartY+mSize/2;
-                        line1_x2 = mStartX +mSize;
-                        line1_y2 = mStartY+mSize/2;
+                        line1_x1 = 0;
+                        line1_y1 = mSize/2;
+                        line1_x2 = mSize;
+                        line1_y2 = mSize/2;
 
-                        line2_x1 = mStartX ;
-                        line2_y1 = mStartY+mSize/2;
-                        line2_x2 = mStartX +mSize;
-                        line2_y2 = mStartY+mSize/2;
+                        line2_x1 = 0 ;
+                        line2_y1 = mSize/2;
+                        line2_x2 = mSize;
+                        line2_y2 = mSize/2;
                         break;
                     default:
                         break;
